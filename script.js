@@ -1,26 +1,22 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const minValueInput = document.getElementById('minValue');
-    const maxValueInput = document.getElementById('maxValue');
+document.addEventListener('DOMContentLoaded', () => {
     const generateButton = document.getElementById('generateButton');
-    const resultParagraph = document.getElementById('result');
+    const result = document.getElementById('result');
 
-    generateButton.addEventListener('click', function() {
-        // Get the values from the input fields
-        const minValue = parseInt(minValueInput.value, 10);
-        const maxValue = parseInt(maxValueInput.value, 10);
+    generateButton.addEventListener('click', () => {
+        const minValue = parseInt(document.getElementById('minValue').value);
+        const maxValue = parseInt(document.getElementById('maxValue').value);
 
-        // Validate the input
-        if (isNaN(minValue) || isNaN(maxValue) || minValue > maxValue) {
-            resultParagraph.textContent = 'Please enter valid minimum and maximum values where minimum is less than or equal to maximum.';
-            resultParagraph.style.color = 'red';
+        if (isNaN(minValue) || isNaN(maxValue)) {
+            result.textContent = 'Please enter valid numbers.';
             return;
         }
 
-        // Generate a random number between minValue and maxValue
-        const randomNumber = Math.floor(Math.random() * (maxValue - minValue + 1)) + minValue;
+        if (minValue > maxValue) {
+            result.textContent = 'Minimum value should be less than or equal to the maximum value.';
+            return;
+        }
 
-        // Display the result
-        resultParagraph.textContent = `Random Number: ${randomNumber}`;
-        resultParagraph.style.color = '#007bff';
+        const randomNumber = Math.floor(Math.random() * (maxValue - minValue + 1)) + minValue;
+        result.textContent = `Random Number: ${randomNumber}`;
     });
 });
